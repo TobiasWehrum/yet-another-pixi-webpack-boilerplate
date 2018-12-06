@@ -1,0 +1,22 @@
+{
+  "assets": {
+    "imagesFolder": "assets/images/",
+    "images": {
+      "exampleImage": "example.jpg"
+    },
+    "sfxFolder": "assets/sounds/",
+    "sfx": {
+      "exampleSound": "example.mp3"
+    }
+  },
+  "texts": {
+    "startScreenExampleText": "Click, Tap, Or Press Space!"
+  },
+  "textStyles": {
+    "fontFamily": "Tahoma, Geneva, sans-serif",
+    "fontSizeNormal": 26
+  },
+  "debug": {
+    "active": false
+  }
+}
