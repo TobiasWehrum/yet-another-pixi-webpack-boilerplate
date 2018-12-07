@@ -76,7 +76,7 @@ export class Keyboard extends EventEmitter {
         Keyboard.SPACE = 32;
 
         Keyboard.LEFT = 37;
-        Keyboard.TOP = 38;
+        Keyboard.UP = 38;
         Keyboard.RIGHT = 39;
         Keyboard.DOWN = 40;
 
