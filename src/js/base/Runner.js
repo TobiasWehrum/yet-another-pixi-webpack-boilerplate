@@ -117,6 +117,11 @@ export class Runner extends EventEmitter {
     }
 
     getText(id, ...args) {
+		if (!this.config.texts.hasOwnProperty(id)) {
+            console.log("text not found for id: " + id);
+            return "[" + id + "]";
+        }
+		
         let text = this.config.texts[id];
 
         for (let i = 0; i < args.length; i++) {
