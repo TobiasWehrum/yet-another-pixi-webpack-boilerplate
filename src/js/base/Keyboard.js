@@ -10,8 +10,9 @@ export class Keyboard extends EventEmitter {
         document.addEventListener('keyup', this.onKeyUp.bind(this));
         window.addEventListener('blur', this.onBlur.bind(this));
         window.addEventListener('focus', this.onFocus.bind(this));
-        this.enabled = true;
+        this.enabled = document.hasFocus();
         this.down = {};
+        this.downTracker = {};
 
         this.registerKeys();
     }
@@ -21,7 +22,11 @@ export class Keyboard extends EventEmitter {
             return;
 
         let keyCode = e.keyCode;
+        if (this.downTracker[keyCode])
+            return;
+
         this.down[keyCode] = true;
+        this.downTracker[keyCode] = true;
         this.emit("down", keyCode, e);
         this.emit("down" + keyCode, e);
     }
@@ -32,21 +37,26 @@ export class Keyboard extends EventEmitter {
 
         let keyCode = e.keyCode;
         delete this.down[keyCode];
+        delete this.downTracker[keyCode];
         this.emit("up", keyCode, e);
         this.emit("up" + keyCode, e);
     }
 
-    clear() {
+    clear(focusLost = false) {
         for (let key in this.down){
             if (this.down.hasOwnProperty(key)){
                 delete this.down[key];
+            }
+
+            if (focusLost && this.downTracker.hasOwnProperty(key)) {
+                delete this.downTracker[key];
             }
         }
     }
 
     onBlur() {
         // Lost focus. Release all keys.
-        this.clear();
+        this.clear(true);
 
         this.enabled = false;
         this.emit("lost focus");
